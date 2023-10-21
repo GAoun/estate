@@ -1,14 +1,14 @@
 import { useSelector } from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
-// import {
-//   updateUserStart,
-//   updateUserSuccess,
-//   updateUserFailure,
-//   deleteUserFailure,
-//   deleteUserStart,
-//   deleteUserSuccess,
-//   signOutUserStart,
-// } from '../redux/User/userSlice';
+import {
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signOutUserStart,
+} from '../redux/User/userSlice';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 export default function Profile() {
@@ -44,6 +44,7 @@ export default function Profile() {
         },
         body: JSON.stringify(formData),
       });
+
       const data = await res.json();
       if (data.success === false) {
         dispatch(updateUserFailure(data.message));

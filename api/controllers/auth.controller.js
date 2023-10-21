@@ -30,7 +30,7 @@ export const signin = async (req, res, next) => {
         const token = jwt.sign( { id: validUser._id}, process.env.JWT_SECRET);
         const { password: pass, ...rest} = validUser._doc; //remove password from response so we can pass it to user without pass attribute.
         res
-        .cookie('access_token', token, { httpOnly: true, expires: new Date(Date.now() + 24 * 60 * 60 * 1) })
+        .cookie('access_token', token, { httpOnly: true, expires: new Date(Date.now() + 24 * 60 * 60 * 1000) })
         .status(200)
         .json(rest); //maxAge=1 day
 
@@ -38,3 +38,12 @@ export const signin = async (req, res, next) => {
         next(error);
     }
 };
+
+export const singout = async (req, res, next) => {
+    try{
+        res.clearCookie('access_token');
+        res.status(200).json('User has been logged out');
+    } catch(error){
+        next(error);
+    }
+}
